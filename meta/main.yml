@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  role_name: packages
+  author: Gino Jansen
+  description: Configure Packages
+  license: license (BSD, MIT)
+  platforms:
+    - name: Centos
+      versions:
+        - 6
+        - 7
+        - 8
+
+  min_ansible_version: 2.9
+
+  galaxy_tags:
+    - centos
+    - yum
+    - packages

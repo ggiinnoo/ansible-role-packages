@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  vars:
+    packages:
+      - name: "htop"
+
+  roles:
+    - ansible-role-packages
