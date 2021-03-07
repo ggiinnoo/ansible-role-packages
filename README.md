@@ -1,3 +1,4 @@
+[![Ansible role packages](https://github.com/ggiinnoo/ansible-role-packages/actions/workflows/main.yml/badge.svg?branch=release%2F1.0.x)](https://github.com/ggiinnoo/ansible-role-packages/actions/workflows/main.yml)
 Packages
 =========
 
