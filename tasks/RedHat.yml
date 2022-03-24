@@ -1,6 +1,6 @@
 ---
 
-- name: Install custom defined packages
+- name: Packages | RedHat | Install custom defined packages
   yum:
     name: "{{ item.name }}"
     state: "{{ item.state | default('installed') }}"
@@ -8,3 +8,5 @@
     disable_gpg_check: "{{ item.disable_gpg_check | default(omit) }}"
   with_items:
     - "{{ packages }}"
+  loop_control:
+    label: "Package: '{{ item.name }}' Will be '{{ item.state|default('installed') }}'"
