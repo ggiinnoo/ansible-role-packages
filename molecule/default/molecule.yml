@@ -3,9 +3,6 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint: |
-  yamllint .
-  ansible-lint .
 platforms:
   - name: instance
     image: "ggiinnoo/docker-ansible:${DOCKER_IMAGE:-centos7}-latest"
@@ -16,13 +13,5 @@ platforms:
     pre_build_image: true
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
   playbooks:
-    converge: converge.yml
-scenario:
-  name: default
-verifier:
-  name: testinfra
-  lint:
-    name: flake8
+    converge: ${MOLECULE_PLAYBOOK:-playbook.yml}

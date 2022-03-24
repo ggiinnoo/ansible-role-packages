@@ -1,35 +1,60 @@
 ---
-name: Ansible role packages
+name: Ansible role Packages
 
 on:
   push:
     branches:
-     -  'release/**'
+     - 'release/**'
+     - 'feature/**'
+
+defaults:
+  run:
+    working-directory: 'ggiinnoo.packages'
 
 jobs:
-  build:
-    name: Build for centos
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+        with:
+          path: 'ggiinnoo.packages'
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install yamllint
+
+      - name: Lint code.
+        run: |
+          yamllint .
+  CentOS:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        centos: ['centos7', 'centos8']
+        os: ['centos7']
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
-          fetch-depth: 1
-          path: ansible-role-packages
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - name: Install dependencies
-        run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install yamllint molecule[docker] docker ansible ansible-lint yamllint
-      - name: run Molecule
+          path: "${{ github.repository }}"
+      - uses: gofrolist/molecule-action@v2
         env:
-          DOCKER_IMAGE: ${{ matrix.centos }}
-        run: |
-          cd ansible-role-packages
-          molecule test
+          DOCKER_IMAGE: ${{ matrix.os }}
+
+  Debian:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: ['debian10', 'debian11']
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: "${{ github.repository }}"
+      - uses: gofrolist/molecule-action@v2
+        env:
+          DOCKER_IMAGE: ${{ matrix.os }}

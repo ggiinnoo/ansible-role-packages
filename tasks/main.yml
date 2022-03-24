@@ -1,6 +1,4 @@
 ---
 
-- name: Install packages on centos
-  include_tasks: CentOS.yml
-  when:
-    - ansible_distribution == "CentOS"
+- name: Packages | Include OS installation
+  include_tasks: '{{ ansible_os_family }}.yml'
