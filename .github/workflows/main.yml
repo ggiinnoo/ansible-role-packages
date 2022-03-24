@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: ['centos7', 'centos8']
+        os: ['centos7']
     steps:
       - uses: actions/checkout@v2
         with:
