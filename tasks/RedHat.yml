@@ -6,6 +6,7 @@
     state: "{{ item.state | default('installed') }}"
     enablerepo: "{{ item.enablerepo | default(omit) }}"
     disable_gpg_check: "{{ item.disable_gpg_check | default(omit) }}"
+    update_cache: true
   with_items:
     - "{{ packages }}"
   loop_control:

@@ -3,7 +3,8 @@
 - name: Packages | Debian | Install custom defined packages
   apt:
     name: "{{ item.name }}"
-    state: "{{ item.state | default('installed') }}"
+    state: "{{ item.state | default('present') }}"
+    update_cache: true
   with_items:
     - "{{ packages }}"
   loop_control:
